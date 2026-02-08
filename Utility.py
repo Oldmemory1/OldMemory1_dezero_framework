@@ -30,7 +30,7 @@ class Function:
     def __call__(self,input:Variable):
         x = input.data
         y = self.forward(x)
-        output = Variable(y)
+        output = Variable(as_array(y))
         output.set_creator(self)
         self.input = input
         self.output = output
@@ -73,3 +73,8 @@ def numerical_diff(f,x:Variable,eps = 1e-4):
     y0 = f(x0)
     y1 = f(x1)
     return (y1.data - y0.data)/(2*eps)
+
+def as_array(x):
+    if np.isscalar(x): # x是否为标量
+        return np.array(x) # 将其转换为ndarray实例
+    return x

@@ -122,3 +122,18 @@ class Tests(unittest.TestCase):
             x = Variable(1.0)
         except TypeError:
             print("Not support float")
+    def test_step09_4(self):
+        x = np.array([1.0])
+        y = x ** 2
+        print(type(x),x.ndim)
+        print(type(y))
+    def test_step09_5(self):
+        x = np.array(1.0)
+        y = x ** 2
+        print(type(x),x.ndim)
+        print(type(y)) # 出现numpy.float64
+    def test_step09_6(self):
+        print(np.isscalar(np.float64(1.0)))
+        print(np.isscalar(2.0))
+        print(np.isscalar(np.array(1.0)))
+        print(np.isscalar(np.array([1.0, 2.0, 3.0])))
