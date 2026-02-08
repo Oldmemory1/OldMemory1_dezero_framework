@@ -1,3 +1,4 @@
+import numpy as np
 from typing_extensions import override
 
 
@@ -19,3 +20,8 @@ class Square(Function):
     @override
     def forward(self,x):
         return x ** 2
+
+class Exp(Function):
+    @override
+    def forward(self,x):
+        return np.exp(x)

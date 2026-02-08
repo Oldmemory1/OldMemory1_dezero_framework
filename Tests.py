@@ -2,11 +2,11 @@ import unittest
 
 import numpy as np
 
-from Utility import Variable, Function, Square
+from Utility import Variable, Function, Square, Exp
 
 
 class Tests(unittest.TestCase):
-    def test_step01_1(self):
+    def test_step_01_1(self):
         data = np.array(1.0)
         x = Variable(data)
         print(x.data)
@@ -23,4 +23,13 @@ class Tests(unittest.TestCase):
         f = Square()
         y = f(x)
         print(type(y))
+        print(y.data)
+    def test_step_03_1(self):
+        A = Square()
+        B = Exp()
+        C = Square()
+        x = Variable(np.array(0.5))
+        a = A(x)
+        b = B(a)
+        y = C(b)
         print(y.data)
