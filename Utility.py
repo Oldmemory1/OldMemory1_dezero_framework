@@ -45,6 +45,9 @@ class Square(Function):
         gx = 2 * x * gy
         return gx
 
+def square(x):
+    return Square()(x)
+
 class Exp(Function):
     @override
     def forward(self,x):
@@ -55,6 +58,8 @@ class Exp(Function):
         gx = np.exp(x) * gy
         return gx
 
+def exp(x):
+    return Exp()(x)
 
 def numerical_diff(f,x:Variable,eps = 1e-4):
     x0 = Variable(x.data-eps)

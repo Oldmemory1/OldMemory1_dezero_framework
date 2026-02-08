@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-from Utility import Variable, Function, Square, Exp, numerical_diff
+from Utility import Variable, Function, Square, Exp, numerical_diff, square, exp
 
 
 class Tests(unittest.TestCase):
@@ -93,6 +93,14 @@ class Tests(unittest.TestCase):
         a = A(x)
         b = B(a)
         y = C(b)
+        y.grad = np.array(1.0)
+        y.backward()
+        print(x.grad)
+    def test_step09_1(self):
+        x = Variable(np.array(0.5))
+        a = square(x)
+        b = exp(a)
+        y = square(b)
         y.grad = np.array(1.0)
         y.backward()
         print(x.grad)
