@@ -84,3 +84,14 @@ class Tests(unittest.TestCase):
         x = A.input
         x.grad = A.backward(gy=a.grad)
         print(x.grad)
+    def test_step_07_2(self):
+        A = Square()
+        B = Exp()
+        C = Square()
+        x = Variable(np.array(0.5))
+        a = A(x)
+        b = B(a)
+        y = C(b)
+        y.grad = np.array(1.0)
+        y.backward()
+        print(x.grad)

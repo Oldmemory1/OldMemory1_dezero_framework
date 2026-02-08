@@ -11,6 +11,13 @@ class Variable:
     def set_creator(self,func):
         self.creator = func
 
+    def backward(self):
+        f = self.creator # 获取函数
+        if f is not None:
+            x = f.input # 获取函数输入
+            x.grad = f.backward(self.grad) # 调用函数的backward方法
+            x.backward() # 递归调用前一个变量的backward方法
+
 class Function:
     def __call__(self,input:Variable):
         x = input.data
