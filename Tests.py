@@ -85,6 +85,7 @@ class Tests(unittest.TestCase):
         x.grad = A.backward(gy=a.grad)
         print(x.grad)
     def test_step_07_2(self):
+        # 在step8中也适用
         A = Square()
         B = Exp()
         C = Square()

@@ -12,11 +12,13 @@ class Variable:
         self.creator = func
 
     def backward(self):
-        f = self.creator # 获取函数
-        if f is not None:
-            x = f.input # 获取函数输入
-            x.grad = f.backward(self.grad) # 调用函数的backward方法
-            x.backward() # 递归调用前一个变量的backward方法
+        funcs = [self.creator]
+        while funcs:
+            f = funcs.pop() #获取函数
+            x, y = f.input, f.output #获取函数的输入和输出
+            x.grad = f.backward(gy=y.grad) # 反向传播计算输入的梯度
+            if x.creator is not None: # 将前一个函数添加到集合中
+                funcs.append(x.creator)
 
 class Function:
     def __call__(self,input:Variable):
