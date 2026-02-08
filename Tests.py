@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-from Utility import Variable
+from Utility import Variable, Function
 
 
 class Tests(unittest.TestCase):
@@ -12,3 +12,9 @@ class Tests(unittest.TestCase):
         print(x.data)
         x.data = np.array(2.0)
         print(x.data)
+    def test_step_02_1(self):
+        x = Variable(np.array(10))
+        f = Function()
+        y = f(x)
+        print(type(y))
+        print(y.data)
