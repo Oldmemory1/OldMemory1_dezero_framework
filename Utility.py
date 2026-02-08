@@ -1,9 +1,13 @@
 import numpy as np
-from typing_extensions import override
+from numpy import ndarray
+from typing_extensions import override,Optional
 
 
 class Variable:
-    def __init__(self,data):
+    def __init__(self,data:Optional[ndarray]):
+        if data is not None:
+            if not isinstance(data,ndarray):
+                raise TypeError("{} is not supported".format(type(data)))
         self.data = data
         self.grad = None
         self.creator = None

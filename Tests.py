@@ -109,3 +109,16 @@ class Tests(unittest.TestCase):
         y = square(exp(square(x)))
         y.backward()
         print(x.grad)
+    def test_step09_3(self):
+        try:
+            x = Variable(np.array(0.5))
+        except TypeError:
+            print("Not support np.ndarray")
+        try:
+            x = Variable(None)
+        except TypeError:
+            print("Not support None")
+        try:
+            x = Variable(1.0)
+        except TypeError:
+            print("Not support float")
