@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Step7中向Variable中增加backward方法完成重复处理" type="tests" factoryName="Autodetect">
+  <configuration default="false" name="Step7中向Variable中增加backward方法完成重复处理，Step8中将Variable的backward方法由递归改为迭代实现" type="tests" factoryName="Autodetect">
     <module name="deep_learning_framework" />
     <option name="ENV_FILES" value="" />
     <option name="INTERPRETER_OPTIONS" value="" />
