@@ -5,26 +5,41 @@ from typing_extensions import override
 class Variable:
     def __init__(self,data):
         self.data = data
+        self.grad = None
 
 class Function:
     def __call__(self,input:Variable):
         x = input.data
         y = self.forward(x)
         output = Variable(y)
+        self.input = input
         return output
 
     def forward(self,x):
+        raise NotImplementedError()
+    def backward(self,grad):
         raise NotImplementedError()
 
 class Square(Function):
     @override
     def forward(self,x):
         return x ** 2
+    @override
+    def backward(self,gy):
+        x = self.input.data
+        gx = 2 * x * gy
+        return gx
 
 class Exp(Function):
     @override
     def forward(self,x):
         return np.exp(x)
+    @override
+    def backward(self,gy):
+        x = self.input.data
+        gx = np.exp(x) * gy
+        return gx
+
 
 def numerical_diff(f,x:Variable,eps = 1e-4):
     x0 = Variable(x.data-eps)
