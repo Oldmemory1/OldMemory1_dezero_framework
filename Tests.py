@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-from Utility import Variable, Function, Square, Exp
+from Utility import Variable, Function, Square, Exp, numerical_diff
 
 
 class Tests(unittest.TestCase):
@@ -33,3 +33,8 @@ class Tests(unittest.TestCase):
         b = B(a)
         y = C(b)
         print(y.data)
+    def test_step_04_1(self):
+        f = Square()
+        x = Variable(np.array(2.0))
+        dy = numerical_diff(f,x)
+        print(dy)
