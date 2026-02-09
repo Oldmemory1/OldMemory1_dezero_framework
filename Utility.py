@@ -66,6 +66,30 @@ class Variable:
     def cleargrad(self): # 清除导数
         self.grad = None
 
+    @property
+    def shape(self):
+        return self.data.shape
+
+    @property
+    def ndim(self): #维度
+        return self.data.ndim
+
+    @property
+    def size(self): #元素数量
+        return self.data.size
+
+    @property
+    def dtype(self): #数据类型
+        return self.data.dtype
+
+    def __len__(self):
+        return len(self.data)
+
+    def __repr__(self):
+        if self.data is None:
+            return 'variable(None)'
+        p = str(self.data).replace('\n','\n'+' '*9)
+        return 'variable('+p+')'
 
 class Function:
     def __call__(self,*inputs):

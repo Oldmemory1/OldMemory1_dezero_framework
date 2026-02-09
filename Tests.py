@@ -193,6 +193,9 @@ class Tests(unittest.TestCase):
         y.backward()
         print(y.grad,t.grad)
         print(x0.grad,x1.grad)
+    def test_step19_1(self):
+        x = Variable(np.array([[1,2,3],[4,5,6]]))
+        print(len(x))
 
 class SquareTest(unittest.TestCase):
     def test_forward(self):
