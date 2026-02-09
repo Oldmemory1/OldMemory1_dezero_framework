@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-from Utility import Variable, Function, Square, Exp, numerical_diff, square, exp
+from Utility import Variable, Function, Square, Exp, numerical_diff, square, exp, Add
 
 
 class Tests(unittest.TestCase):
@@ -137,6 +137,12 @@ class Tests(unittest.TestCase):
         print(np.isscalar(2.0))
         print(np.isscalar(np.array(1.0)))
         print(np.isscalar(np.array([1.0, 2.0, 3.0])))
+    def test_step11_1(self):
+        xs = [Variable(np.array(2)),Variable(np.array(3))]
+        f = Add()
+        ys = f(xs)
+        y = ys[0]
+        print(y.data)
 
 class SquareTest(unittest.TestCase):
     def test_forward(self):

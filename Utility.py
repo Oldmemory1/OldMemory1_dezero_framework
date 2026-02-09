@@ -1,3 +1,5 @@
+from symtable import Class
+
 import numpy as np
 from numpy import ndarray
 from typing_extensions import override,Optional
@@ -27,18 +29,19 @@ class Variable:
                 funcs.append(x.creator)
 
 class Function:
-    def __call__(self,input:Variable):
-        x = input.data
-        y = self.forward(x)
-        output = Variable(as_array(y))
-        output.set_creator(self)
-        self.input = input
-        self.output = output
-        return output
+    def __call__(self,inputs):
+        xs = [x.data for x in inputs]
+        ys = self.forward(xs)
+        outputs = [Variable(as_array(y)) for y in ys]
+        for output in outputs:
+            output.set_creator(self)
+        self.inputs = inputs
+        self.outputs = outputs
+        return outputs
 
-    def forward(self,x):
+    def forward(self,xs):
         raise NotImplementedError()
-    def backward(self,grad):
+    def backward(self,gys):
         raise NotImplementedError()
 
 class Square(Function):
@@ -66,6 +69,13 @@ class Exp(Function):
 
 def exp(x):
     return Exp()(x)
+
+class Add(Function):
+    @override
+    def forward(self,xs):
+        x0, x1 = xs
+        y = x0 + x1
+        return (y,)
 
 def numerical_diff(f,x:Variable,eps = 1e-4):
     x0 = Variable(x.data-eps)
