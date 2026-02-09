@@ -13,14 +13,26 @@ class Variable:
         self.data = data
         self.grad = None
         self.creator = None
+        self.generation = 0
 
     def set_creator(self,func):
         self.creator = func
+        self.generation = func.generation + 1
 
     def backward(self):
         if self.grad is None:
             self.grad = np.ones_like(self.data)
-        funcs = [self.creator]
+        funcs = []
+        seen_set = set()
+
+        def add_func(func):
+            if func not in seen_set:
+                funcs.append(func)
+                seen_set.add(func)
+                funcs.sort(key=lambda func: func.generation) # generation较大的，先算反向传播
+
+        add_func(func=self.creator)
+
         while funcs:
             f = funcs.pop() #获取函数
             gys = [output.grad for output in f.outputs] # 获取outputs的导数汇集到列表中
@@ -33,7 +45,7 @@ class Variable:
                 else:
                     x.grad = x.grad + gx
                 if x.creator is not None:
-                    funcs.append(x.creator)
+                    add_func(func=x.creator)
 
     def cleargrad(self): # 清除导数
         self.grad = None
@@ -46,6 +58,7 @@ class Function:
         if not isinstance(ys,tuple):
             ys = (ys,)
         outputs = [Variable(as_array(y)) for y in ys]
+        self.generation = max([x.generation for x in inputs])
         for output in outputs:
             output.set_creator(self)
         self.inputs = inputs
