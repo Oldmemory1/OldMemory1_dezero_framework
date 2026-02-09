@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-from Utility import Variable, Function, Square, Exp, numerical_diff, square, exp, Add, add
+from Utility import Variable, Function, Square, Exp, numerical_diff, square, exp, Add, add, mul
 
 
 class Tests(unittest.TestCase):
@@ -196,6 +196,16 @@ class Tests(unittest.TestCase):
     def test_step19_1(self):
         x = Variable(np.array([[1,2,3],[4,5,6]]))
         print(len(x))
+    def test_step20_1(self):
+        a = Variable(np.array(3.0))
+        b = Variable(np.array(2.0))
+        c = Variable(np.array(1.0))
+
+        y = add(mul(a,b),c)
+        y.backward()
+        print(y)
+        print(a.grad)
+        print(b.grad)
 
 class SquareTest(unittest.TestCase):
     def test_forward(self):

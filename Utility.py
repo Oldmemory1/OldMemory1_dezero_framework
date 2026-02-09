@@ -130,7 +130,7 @@ class Exp(Function):
         return np.exp(x)
     @override
     def backward(self,gy):
-        x = self.input.data
+        x = self.inputs[0].data
         gx = np.exp(x) * gy
         return gx
 
@@ -147,6 +147,19 @@ class Add(Function):
         return gy,gy
 def add(x0,x1):
     return Add()(x0,x1)
+
+class Mul(Function):
+    @override
+    def forward(self,x0,x1):
+        y = x0 * x1
+        return y
+    @override
+    def backward(self,gy):
+        x0 = self.inputs[0].data
+        x1 = self.inputs[1].data
+        return gy * x1 , gy * x0
+def mul(x0,x1):
+    return Mul()(x0,x1)
 
 def numerical_diff(f,x:Variable,eps = 1e-4):
     x0 = Variable(x.data-eps)
