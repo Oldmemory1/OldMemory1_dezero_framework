@@ -85,11 +85,15 @@ class Variable:
     def __len__(self):
         return len(self.data)
 
+    @override
     def __repr__(self):
         if self.data is None:
             return 'variable(None)'
         p = str(self.data).replace('\n','\n'+' '*9)
         return 'variable('+p+')'
+
+    def __mul__(self,other):
+        return mul(self,other)
 
 class Function:
     def __call__(self,*inputs):
