@@ -35,6 +35,9 @@ class Variable:
                 if x.creator is not None:
                     funcs.append(x.creator)
 
+    def cleargrad(self): # 清除导数
+        self.grad = None
+
 
 class Function:
     def __call__(self,*inputs):
