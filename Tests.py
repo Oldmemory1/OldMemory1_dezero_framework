@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-from Utility import Variable, Function, Square, Exp, numerical_diff, square, exp, Add
+from Utility import Variable, Function, Square, Exp, numerical_diff, square, exp, Add, add
 
 
 class Tests(unittest.TestCase):
@@ -148,6 +148,11 @@ class Tests(unittest.TestCase):
         x1 = Variable(np.array(3))
         f = Add()
         y = f(x0, x1)
+        print(y.data)
+    def test_step12_2(self):
+        x0 = Variable(np.array(2))
+        x1 = Variable(np.array(3))
+        y = add(x0, x1)
         print(y.data)
 
 class SquareTest(unittest.TestCase):
