@@ -120,6 +120,9 @@ class Variable:
     def __rtruediv__(self, other):
         return div(self,other)
 
+    def __pow__(self, power):
+        return pow(self,power)
+
 class Function:
     def __call__(self,*inputs):
         inputs = [as_variable(obj=input_) for input_ in inputs]
@@ -236,6 +239,21 @@ def rdiv(x0,x1):
     x1 = as_array(x1)
     return Div()(x1,x0)
 
+class Pow(Function):
+    def __init__(self,c):
+        self.c = c
+    @override
+    def forward(self,x):
+        y = x ** self.c
+        return y
+    @override
+    def backward(self,gy):
+        x = self.inputs[0].data
+        c = self.c
+        gx = c * x ** (c-1) * gy
+        return gx
+def pow(x,c):
+    return Pow(c)(x)
 
 def numerical_diff(f,x:Variable,eps = 1e-4):
     x0 = Variable(x.data-eps)
