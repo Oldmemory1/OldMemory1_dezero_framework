@@ -137,3 +137,10 @@ class Tests(unittest.TestCase):
         print(np.isscalar(2.0))
         print(np.isscalar(np.array(1.0)))
         print(np.isscalar(np.array([1.0, 2.0, 3.0])))
+
+class SquareTest(unittest.TestCase):
+    def test_forward(self):
+        x = Variable(np.array(2.0))
+        y = square(x)
+        expected = np.array(4.0)
+        self.assertEqual(y.data,expected)
