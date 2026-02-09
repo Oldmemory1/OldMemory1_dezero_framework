@@ -143,6 +143,12 @@ class Tests(unittest.TestCase):
         ys = f(xs)
         y = ys[0]
         print(y.data)
+    def test_step12_1(self):
+        x0 = Variable(np.array(2))
+        x1 = Variable(np.array(3))
+        f = Add()
+        y = f(x0, x1)
+        print(y.data)
 
 class SquareTest(unittest.TestCase):
     def test_forward(self):
