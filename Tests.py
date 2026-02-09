@@ -237,6 +237,10 @@ class Tests(unittest.TestCase):
         y = Variable(np.array([1.0]))
         z = x + y
         print(z)
+    def test_step22_1(self):
+        x = Variable(np.array(2.0))
+        y = -x
+        print(y)
 
 
 

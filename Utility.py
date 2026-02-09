@@ -105,6 +105,9 @@ class Variable:
     def __rmul__(self, other):
         return mul(self,other)
 
+    def __neg__(self):
+        return neg(self)
+
 class Function:
     def __call__(self,*inputs):
         inputs = [as_variable(obj=input_) for input_ in inputs]
@@ -177,6 +180,16 @@ class Mul(Function):
 def mul(x0,x1):
     x1 = as_array(x1)
     return Mul()(x0,x1)
+
+class Neg(Function):
+    @override
+    def forward(self,x):
+        return -x
+    @override
+    def backward(self,gy):
+        return -gy
+def neg(x):
+    return Neg()(x)
 
 def numerical_diff(f,x:Variable,eps = 1e-4):
     x0 = Variable(x.data-eps)
