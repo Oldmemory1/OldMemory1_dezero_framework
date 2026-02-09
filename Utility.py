@@ -98,6 +98,12 @@ class Variable:
     def __add__(self,other):
         return add(self,other)
 
+    def __radd__(self, other):
+        return add(self,other)
+
+    def __rmul__(self, other):
+        return mul(self,other)
+
 class Function:
     def __call__(self,*inputs):
         inputs = [as_variable(obj=input_) for input_ in inputs]
@@ -168,6 +174,7 @@ class Mul(Function):
         x1 = self.inputs[1].data
         return gy * x1 , gy * x0
 def mul(x0,x1):
+    x1 = as_array(x1)
     return Mul()(x0,x1)
 
 def numerical_diff(f,x:Variable,eps = 1e-4):

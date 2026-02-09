@@ -228,6 +228,10 @@ class Tests(unittest.TestCase):
         x = Variable(np.array(2.0))
         y = x + 3.0
         print(y)
+    def test_step21_3(self):
+        x = Variable(np.array(2.0))
+        y = 3.0 * x + 1.0
+        print(y)
 
 
 class SquareTest(unittest.TestCase):
