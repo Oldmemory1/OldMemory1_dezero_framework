@@ -19,7 +19,7 @@ class Variable:
         self.creator = func
         self.generation = func.generation + 1
 
-    def backward(self):
+    def backward(self,retain_grad = False):
         if self.grad is None:
             self.grad = np.ones_like(self.data)
         funcs = []
@@ -46,6 +46,9 @@ class Variable:
                     x.grad = x.grad + gx
                 if x.creator is not None:
                     add_func(func=x.creator)
+            if not retain_grad:
+                for y in f.outputs:
+                    y().grad = None # y 是 weakref
 
     def cleargrad(self): # 清除导数
         self.grad = None
