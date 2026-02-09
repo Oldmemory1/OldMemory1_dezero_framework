@@ -18,6 +18,7 @@ def using_config(name,value):
         setattr(Config,name,old_value)
 
 class Variable:
+    __array_priority__ = 200 #优先级高于ndarray
     def __init__(self,data:Optional[ndarray],name = None):
         if data is not None:
             if not isinstance(data,ndarray):
