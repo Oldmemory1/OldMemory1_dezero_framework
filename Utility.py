@@ -100,6 +100,7 @@ class Variable:
 
 class Function:
     def __call__(self,*inputs):
+        inputs = [as_variable(obj=input_) for input_ in inputs]
         xs = [x.data for x in inputs]
         ys = self.forward(*xs) # 解包
         if not isinstance(ys,tuple):
@@ -180,3 +181,8 @@ def as_array(x):
         return np.array(x) # 将其转换为ndarray实例
     return x
 
+def as_variable(obj):
+    if isinstance(obj, Variable):
+        return obj
+    else:
+        return Variable(obj)

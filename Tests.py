@@ -220,6 +220,10 @@ class Tests(unittest.TestCase):
         print(y)
         print(a.grad)
         print(b.grad)
+    def test_step21_1(self):
+        x = Variable(np.array(2.0))
+        y = x + np.array(3.0)
+        print(y)
 
 
 class SquareTest(unittest.TestCase):
