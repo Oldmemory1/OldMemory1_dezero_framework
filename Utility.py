@@ -23,10 +23,15 @@ class Variable:
         funcs = [self.creator]
         while funcs:
             f = funcs.pop() #获取函数
-            x, y = f.input, f.output #获取函数的输入和输出
-            x.grad = f.backward(gy=y.grad) # 反向传播计算输入的梯度
-            if x.creator is not None: # 将前一个函数添加到集合中
-                funcs.append(x.creator)
+            gys = [output.grad for output in f.outputs] # 获取outputs的导数汇集到列表中
+            gxs = f.backward(*gys)
+            if not isinstance(gxs,tuple):
+                gxs = (gxs,)
+            for x,gx in zip(f.inputs,gxs): # f.input[i]的导数对应gxs[i]
+                x.grad = gx
+                if x.creator is not None:
+                    funcs.append(x.creator)
+
 
 class Function:
     def __call__(self,*inputs):
@@ -43,7 +48,7 @@ class Function:
 
     def forward(self,*xs):
         raise NotImplementedError()
-    def backward(self,gys):
+    def backward(self,*gys):
         raise NotImplementedError()
 
 class Square(Function):
@@ -52,7 +57,7 @@ class Square(Function):
         return x ** 2
     @override
     def backward(self,gy):
-        x = self.input.data
+        x = self.inputs[0].data
         gx = 2 * x * gy
         return gx
 
@@ -77,6 +82,9 @@ class Add(Function):
     def forward(self,x0,x1):
         y = x0 + x1
         return y
+    @override
+    def backward(self,gy):
+        return gy,gy
 def add(x0,x1):
     return Add()(x0,x1)
 
