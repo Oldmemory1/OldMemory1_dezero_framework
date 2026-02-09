@@ -1,8 +1,8 @@
-from symtable import Class
+import weakref
 
 import numpy as np
 from numpy import ndarray
-from typing_extensions import override,Optional
+from typing_extensions import override, Optional
 
 
 class Variable:
@@ -35,7 +35,7 @@ class Variable:
 
         while funcs:
             f = funcs.pop() #获取函数
-            gys = [output.grad for output in f.outputs] # 获取outputs的导数汇集到列表中
+            gys = [output().grad for output in f.outputs] # 获取outputs的导数汇集到列表中
             gxs = f.backward(*gys)
             if not isinstance(gxs,tuple):
                 gxs = (gxs,)
@@ -62,7 +62,7 @@ class Function:
         for output in outputs:
             output.set_creator(self)
         self.inputs = inputs
-        self.outputs = outputs
+        self.outputs = [weakref.ref(output) for output in outputs]
         return outputs if len(outputs)>1 else outputs[0]
 
     def forward(self,*xs):
