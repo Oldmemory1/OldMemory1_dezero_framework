@@ -211,6 +211,16 @@ class Tests(unittest.TestCase):
         b = Variable(np.array(2.0))
         y = a * b
         print(y)
+    def test_step20_3(self):
+        a = Variable(np.array(3.0))
+        b = Variable(np.array(2.0))
+        c = Variable(np.array(1.0))
+        y = a * b + c
+        y.backward()
+        print(y)
+        print(a.grad)
+        print(b.grad)
+
 
 class SquareTest(unittest.TestCase):
     def test_forward(self):
