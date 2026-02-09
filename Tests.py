@@ -241,8 +241,12 @@ class Tests(unittest.TestCase):
         x = Variable(np.array(2.0))
         y = -x
         print(y)
-
-
+    def test_step22_2(self):
+        x = Variable(np.array(2.0))
+        y1 = 2.0 - x
+        y2 = x - 1.0
+        print(y1)
+        print(y2)
 
 class SquareTest(unittest.TestCase):
     def test_forward(self):

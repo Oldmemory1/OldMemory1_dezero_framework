@@ -108,6 +108,12 @@ class Variable:
     def __neg__(self):
         return neg(self)
 
+    def __sub__(self, other):
+        return sub(self,other)
+
+    def __rsub__(self, other):
+        return sub(self,other)
+
 class Function:
     def __call__(self,*inputs):
         inputs = [as_variable(obj=input_) for input_ in inputs]
@@ -190,6 +196,20 @@ class Neg(Function):
         return -gy
 def neg(x):
     return Neg()(x)
+
+class Sub(Function):
+    @override
+    def forward(self,x0,x1):
+        return x0 - x1
+    @override
+    def backward(self,gy):
+        return gy, -gy
+def sub(x0,x1):
+    x1 = as_array(x1)
+    return Sub()(x0,x1)
+def rsub(x0,x1):
+    x1 = as_array(x1)
+    return Sub()(x1,x0)
 
 def numerical_diff(f,x:Variable,eps = 1e-4):
     x0 = Variable(x.data-eps)
