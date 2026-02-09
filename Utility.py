@@ -18,11 +18,12 @@ def using_config(name,value):
         setattr(Config,name,old_value)
 
 class Variable:
-    def __init__(self,data:Optional[ndarray]):
+    def __init__(self,data:Optional[ndarray],name = None):
         if data is not None:
             if not isinstance(data,ndarray):
                 raise TypeError("{} is not supported".format(type(data)))
         self.data = data
+        self.name = name
         self.grad = None
         self.creator = None
         self.generation = 0
