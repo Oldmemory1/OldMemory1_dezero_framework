@@ -162,6 +162,12 @@ class Tests(unittest.TestCase):
         print(z.data)
         print(x.grad)
         print(y.grad)
+    def test_step14_1(self):
+        x = Variable(np.array(3.0))
+        y = add(x,x)
+        z = add(y,x)
+        z.backward()
+        print(x.grad)
 
 class SquareTest(unittest.TestCase):
     def test_forward(self):

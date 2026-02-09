@@ -28,7 +28,10 @@ class Variable:
             if not isinstance(gxs,tuple):
                 gxs = (gxs,)
             for x,gx in zip(f.inputs,gxs): # f.input[i]的导数对应gxs[i]
-                x.grad = gx
+                if x.grad is None:
+                    x.grad = gx
+                else:
+                    x.grad = x.grad + gx
                 if x.creator is not None:
                     funcs.append(x.creator)
 
