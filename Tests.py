@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-from Utility import Variable, Function, Square, Exp, numerical_diff, square, exp, Add, add, mul
+from dezero import Variable, Function, Square, Exp, numerical_diff, square, exp, Add, add, mul
 
 
 class Tests(unittest.TestCase):
