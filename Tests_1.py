@@ -24,6 +24,9 @@ def goldstein(x, y):
     z = (1 + (x + y + 1) ** 2 * (19 - 14 * x + 3 * x ** 2 - 14 * y + 6 * x * y + 3 * y ** 2)) * (
                 30 + (2 * x - 3 * y) ** 2 * (18 - 32 * x + 12 * x ** 2 + 48 * y - 36 * x * y + 27 * y ** 2))
     return z
+def rosenbrock(x0,x1):
+    y = 100 * (x1 - x0 ** 2) ** 2 + (1 - x0) ** 2
+    return y
 
 class Sin(Function):
     @override
@@ -110,3 +113,11 @@ class Tests_1(unittest.TestCase):
         x.name = 'x'
         y.name = 'y'
         plot_dot_graph(y,verbose=False,to_file='graph_mysin.png')
+    def test_step_28_1(self):
+        x0 = Variable(np.array(0.0))
+        x1 = Variable(np.array(2.0))
+        y = rosenbrock(x0,x1)
+        y.backward()
+        print(y.data)
+        print(x0.grad)
+        print(x1.grad)
