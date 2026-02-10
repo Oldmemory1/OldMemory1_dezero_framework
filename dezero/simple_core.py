@@ -112,15 +112,15 @@ class Variable:
         return sub(self,other)
 
     def __rsub__(self, other):
-        return sub(self,other)
+        return rsub(self,other)
 
     def __truediv__(self, other):
         return div(self,other)
 
     def __rtruediv__(self, other):
-        return div(self,other)
+        return rdiv(self,other)
 
-    def __pow__(self, power):
+    def __pow__(self, power, modulo=None):
         return pow(self,power)
 
 class Function:
