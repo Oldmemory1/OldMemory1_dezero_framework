@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-from dezero.utils import _dot_var, _dot_func
+from dezero.utils import _dot_var, _dot_func, plot_dot_graph
 
 if '__file__' in globals():
     import os
@@ -58,4 +58,12 @@ class Tests_1(unittest.TestCase):
         y = x0 + x1
         txt = _dot_func(y.creator)
         print(txt)
-
+    def test_step_26_3(self):
+        x = Variable(np.array(1.0))
+        y = Variable(np.array(1.0))
+        z = goldstein(x,y)
+        z.backward()
+        x.name = 'x'
+        y.name = 'y'
+        z.name = 'z'
+        plot_dot_graph(z,verbose=False,to_file='graph.png')
