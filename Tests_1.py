@@ -2,6 +2,8 @@ import unittest
 
 import numpy as np
 
+from dezero.utils import _dot_var
+
 if '__file__' in globals():
     import os
     import sys
@@ -45,5 +47,9 @@ class Tests_1(unittest.TestCase):
         print(z)
         z.backward()
         print(x.grad,y.grad)
-
+    def test_step_26_1(self):
+        x = Variable(np.random.randn(2,3))
+        x.name = 'x'
+        print(_dot_var(x))
+        print(_dot_var(x, verbose=True))
 
