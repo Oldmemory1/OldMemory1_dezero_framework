@@ -107,3 +107,6 @@ class Tests_1(unittest.TestCase):
         y.backward()
         print(y.data)
         print(x.grad)
+        x.name = 'x'
+        y.name = 'y'
+        plot_dot_graph(y,verbose=False,to_file='graph_mysin.png')
