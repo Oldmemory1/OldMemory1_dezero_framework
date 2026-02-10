@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="生成sample.png" type="PowerShellRunType" factoryName="PowerShell" scriptUrl="D:\PyCharmProjects\deep_learning_framework\gererate_sample_picture.ps1" executablePath="C:/Program Files/PowerShell/7/pwsh.exe">
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>

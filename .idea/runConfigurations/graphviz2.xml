@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="安装graphviz" type="PowerShellRunType" factoryName="PowerShell" scriptUrl="D:\PyCharmProjects\deep_learning_framework\install_graphviz.ps1" executablePath="C:/Program Files/PowerShell/7/pwsh.exe">
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>

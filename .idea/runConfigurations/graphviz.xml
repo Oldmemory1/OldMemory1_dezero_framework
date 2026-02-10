@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="检查graphviz是否安装成功" type="PowerShellRunType" factoryName="PowerShell" scriptUrl="D:\PyCharmProjects\deep_learning_framework\check_grahviz.ps1" executablePath="C:/Program Files/PowerShell/7/pwsh.exe">
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>
