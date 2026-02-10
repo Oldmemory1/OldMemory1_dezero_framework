@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-from dezero.utils import _dot_var
+from dezero.utils import _dot_var, _dot_func
 
 if '__file__' in globals():
     import os
@@ -52,4 +52,10 @@ class Tests_1(unittest.TestCase):
         x.name = 'x'
         print(_dot_var(x))
         print(_dot_var(x, verbose=True))
+    def test_step_26_2(self):
+        x0 = Variable(np.array(1.0))
+        x1 = Variable(np.array(1.0))
+        y = x0 + x1
+        txt = _dot_func(y.creator)
+        print(txt)
 
