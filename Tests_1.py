@@ -1,4 +1,5 @@
 import unittest
+from typing_extensions import override
 
 import numpy as np
 
@@ -9,7 +10,8 @@ if '__file__' in globals():
     import sys
     sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from dezero import Variable
+from dezero import Variable, Function
+
 
 def sphere(x,y):
     z = x**2 + y**2
@@ -21,6 +23,21 @@ def goldstein(x, y):
     z = (1 + (x + y + 1) ** 2 * (19 - 14 * x + 3 * x ** 2 - 14 * y + 6 * x * y + 3 * y ** 2)) * (
                 30 + (2 * x - 3 * y) ** 2 * (18 - 32 * x + 12 * x ** 2 + 48 * y - 36 * x * y + 27 * y ** 2))
     return z
+
+class Sin(Function):
+    @override
+    def forward(self, x):
+        y = np.sin(x)
+        return y
+    @override
+    def backward(self, gy):
+        x = self.inputs[0].data
+        gx = gy * np.cos(x)
+        return gx
+
+def sin(x):
+    return Sin()(x)
+
 class Tests_1(unittest.TestCase):
     def test_step_23_1(self):
         x = Variable(np.array(1.0))
@@ -67,3 +84,9 @@ class Tests_1(unittest.TestCase):
         y.name = 'y'
         z.name = 'z'
         plot_dot_graph(z,verbose=False,to_file='graph.png')
+    def test_step_27_1(self):
+        x = Variable(np.array(np.pi/4))
+        y = sin(x)
+        y.backward()
+        print(y.data)
+        print(x.grad)
