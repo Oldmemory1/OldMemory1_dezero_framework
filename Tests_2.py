@@ -75,3 +75,12 @@ class Tests_2(unittest.TestCase):
         gx = x.grad
         gx.name = 'gx' + str(iterations+1)
         plot_dot_graph(gx,verbose=False,to_file='tanh.png')
+    def test_step_36_1(self):
+        x = Variable(np.array(2.0))
+        y = x ** 2
+        y.backward(create_graph=True)
+        gx = x.grad
+        x.cleargrad()
+        z = gx ** 3 + y
+        z.backward()
+        print(x.grad)
