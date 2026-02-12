@@ -18,3 +18,19 @@ class Tests_2(unittest.TestCase):
         x.cleargrad()
         gx.backward()
         print(x.grad)
+    def test_step_33_2(self):
+        def f(x):
+            y = x ** 4 - 2 * x **2
+            return y
+        x = Variable(np.array(2.0))
+        iterations = 10
+        for i in range(iterations):
+            print(i,x)
+            y = f(x)
+            x.cleargrad()
+            y.backward(create_graph=True)
+            gx = x.grad
+            x.cleargrad()
+            gx.backward()
+            gx2 = x.grad
+            x.data -= gx.data / gx2.data
