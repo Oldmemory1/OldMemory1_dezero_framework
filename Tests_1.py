@@ -134,4 +134,16 @@ class Tests_1(unittest.TestCase):
             y.backward()
             x0.data -= learning_rate * x0.grad
             x1.data -= learning_rate * x1.grad
-
+    def test_step_29_1(self):
+        def f(x):
+            return x ** 4 - 2 * x ** 2
+        def g2(x):
+            return 12 * x **2 - 4
+        x = Variable(np.array(2.0))
+        iterations = 10
+        for i in range(iterations):
+            print(i,x)
+            y = f(x)
+            x.cleargrad()
+            y.backward()
+            x.data -= x.grad / g2(x.data)
