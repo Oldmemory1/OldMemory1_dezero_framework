@@ -1,10 +1,10 @@
 import unittest
 
 import numpy as np
+from matplotlib import pyplot as plt
 
 import dezero.Functions as F
 from dezero import Variable
-
 
 class Tests_2(unittest.TestCase):
     def test_step_33_1(self):
@@ -44,3 +44,18 @@ class Tests_2(unittest.TestCase):
             x.cleargrad()
             gx.backward(create_graph=True)
             print(x.grad)
+    def test_step_34_2(self):
+        x = Variable(np.linspace(-7,7,200))
+        y = F.sin(x)
+        y.backward(create_graph=True)
+        logs = [y.data]
+        for i in range(3):
+            logs.append(x.grad.data)
+            gx = x.grad
+            x.cleargrad()
+            gx.backward(create_graph=True)
+        labels = ["y=sin(x)","y'","y''","y'''"]
+        for i,v in enumerate(logs):
+            plt.plot(x.data,logs[i],label=labels[i])
+        plt.legend(loc = 'lower right')
+        plt.show()
