@@ -5,6 +5,8 @@ from matplotlib import pyplot as plt
 
 import dezero.Functions as F
 from dezero import Variable
+from dezero.utils import plot_dot_graph
+
 
 class Tests_2(unittest.TestCase):
     def test_step_33_1(self):
@@ -59,3 +61,17 @@ class Tests_2(unittest.TestCase):
             plt.plot(x.data,logs[i],label=labels[i])
         plt.legend(loc = 'lower right')
         plt.show()
+    def test_step_35_1(self):
+        x = Variable(np.array(1.0))
+        y = F.tanh(x)
+        x.name = 'x'
+        y.name = 'y'
+        y.backward(create_graph=True)
+        iterations = 0
+        for i in range(iterations):
+            gx = x.grad
+            x.cleargrad()
+            gx.backward(create_graph=True)
+        gx = x.grad
+        gx.name = 'gx' + str(iterations+1)
+        plot_dot_graph(gx,verbose=False,to_file='tanh.png')
