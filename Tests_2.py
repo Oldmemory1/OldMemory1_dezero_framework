@@ -2,6 +2,7 @@ import unittest
 
 import numpy as np
 
+import dezero.Functions as F
 from dezero import Variable
 
 
@@ -34,3 +35,12 @@ class Tests_2(unittest.TestCase):
             gx.backward()
             gx2 = x.grad
             x.data -= gx.data / gx2.data
+    def test_step_34_1(self):
+        x =Variable(np.array(1.0))
+        y = F.sin(x)
+        y.backward(create_graph=True)
+        for i in range(3):
+            gx = x.grad
+            x.cleargrad()
+            gx.backward(create_graph=True)
+            print(x.grad)
